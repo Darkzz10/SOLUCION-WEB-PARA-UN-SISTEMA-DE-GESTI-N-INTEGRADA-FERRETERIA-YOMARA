@@ -1,0 +1,58 @@
+<nav class="flex flex-col gap-1 p-4">
+
+  @if (authService.hasRole('ADMIN')) {
+    <a routerLink="/main/dashboard" 
+       routerLinkActive="bg-white/10 text-[#f57c00]"
+       [routerLinkActiveOptions]="{exact: true}"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors hover:bg-white/5 group text-slate-400">
+      <span class="material-symbols-outlined transition-colors group-hover:text-[#f57c00]">dashboard</span>
+      <span class="font-medium">Dashboard</span>
+    </a>
+  }
+
+  @if (authService.hasRole('ADMIN') || authService.hasRole('VENDEDOR')) {
+    <a routerLink="/main/ventas" 
+       routerLinkActive="bg-white/10 text-[#f57c00]"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors hover:bg-white/5 group text-slate-400">
+      <span class="material-symbols-outlined transition-colors group-hover:text-[#f57c00]">sell</span>
+      <span class="font-medium">Ventas</span>
+    </a>
+  }
+
+  @if (authService.hasRole('ADMIN') || authService.hasRole('VENDEDOR') || authService.hasRole('ALMACENERO')) {
+    <a routerLink="/main/pedidos" 
+       routerLinkActive="bg-white/10 text-[#f57c00]"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors hover:bg-white/5 group text-slate-400">
+      <span class="material-symbols-outlined transition-colors group-hover:text-[#f57c00]">local_shipping</span>
+      <span class="font-medium">Pedidos</span>
+    </a>
+  }
+
+  @if (authService.hasRole('ADMIN') || authService.hasRole('ALMACENERO')) {
+    <a routerLink="/main/inventario" 
+       routerLinkActive="bg-white/10 text-[#f57c00]"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors hover:bg-white/5 group text-slate-400">
+      <span class="material-symbols-outlined transition-colors group-hover:text-[#f57c00]">inventory_2</span>
+      <span class="font-medium">Inventario</span>
+    </a>
+  }
+
+  @if (authService.hasRole('ADMIN')) {
+    <a routerLink="/main/clientes" 
+       routerLinkActive="bg-white/10 text-[#f57c00]"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors hover:bg-white/5 group text-slate-400">
+      <span class="material-symbols-outlined transition-colors group-hover:text-[#f57c00]">group</span>
+      <span class="font-medium">Clientes</span>
+    </a>
+  }
+
+  @if (authService.hasRole('ADMIN') || authService.hasRole('VENDEDOR')) {
+  <a routerLink="/main/historial-ventas" 
+     routerLinkActive="bg-white/10 text-[#f57c00]"
+     class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors hover:bg-white/5 group text-slate-400">
+    <span class="material-symbols-outlined transition-colors group-hover:text-[#f57c00]">history_edu</span>
+    <span class="font-medium">Historial de Ventas</span>
+  </a>
+}
+
+</nav>

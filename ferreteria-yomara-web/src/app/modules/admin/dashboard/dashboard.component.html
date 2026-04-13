@@ -1,0 +1,109 @@
+<div class="p-6 md:p-8 space-y-8 bg-slate-50 min-h-screen font-body text-slate-900">
+  
+  <header class="flex items-center justify-between pb-6 border-b border-slate-200">
+    <div>
+      <h1 class="text-3xl font-black text-slate-950 uppercase tracking-tighter">Panel de Gestión</h1>
+      <p class="text-slate-600 font-medium mt-1">Hola, Admin! Bienvenido de nuevo.</p>
+    </div>
+    
+    <div class="flex items-center gap-6">
+      <div class="flex items-center gap-2 text-on-surface-variant bg-surface-container px-4 py-2 rounded-lg border border-outline-variant/50">
+        <span class="material-symbols-outlined text-sm text-slate-500">store</span>
+        <span class="text-xs font-black uppercase tracking-widest text-slate-600">Sede actual:</span>
+        <span class="text-sm font-bold text-slate-900">{{ nombreSedeActual }}</span>
+      </div>
+      
+      <div class="w-12 h-12 rounded-full bg-inverse-surface flex items-center justify-center text-primary-container text-xl font-black border-2 border-primary-container shadow-inner">
+        A
+      </div>
+    </div>
+  </header>
+
+  @if (isLoading) {
+    <div class="flex flex-col items-center justify-center h-96 bg-white rounded-2xl shadow-sm border border-slate-100">
+      <span class="animate-spin material-symbols-outlined text-primary text-6xl">progress_activity</span>
+      <p class="text-slate-600 font-black mt-6 uppercase tracking-widest text-sm">Cargando métricas empresariales...</p>
+    </div>
+  } @else {
+    <div class="space-y-8 animate-fade-in">
+      
+      <section class="bg-inverse-surface p-10 rounded-2xl shadow-lg border border-primary-container/20">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-xs font-black text-primary-container uppercase tracking-widest">Resumen del Mes</h2>
+          <span class="text-xs font-bold text-on-surface-variant bg-white px-3 py-1 rounded-full border border-slate-200">Abril 2026</span>
+        </div>
+        
+        <div class="flex items-end justify-between gap-6">
+          <div class="flex-1">
+            <p class="text-[11px] font-black uppercase tracking-widest text-slate-300">Ingresos Totales (Sede Central)</p>
+            <h3 class="text-6xl font-black text-white mt-2 tracking-tighter">
+              S/ {{ (dashboardData?.totalVentasMes || 0) | number:'1.2-2' }}
+            </h3>
+          </div>
+          
+          <div class="flex items-center gap-3 text-slate-200 border border-slate-700 bg-slate-900 px-4 py-3 rounded-xl">
+            <span class="material-symbols-outlined text-slate-400">trending_up</span>
+            <span class="font-bold text-sm">+15.2% vs mes anterior</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+          <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
+            <h3 class="text-sm font-black text-slate-500 uppercase tracking-widest">Ventas por Sede (Este mes)</h3>
+            <span class="material-symbols-outlined text-slate-400">bar_chart</span>
+          </div>
+          
+          <div class="space-y-6">
+            @for (sede of dashboardData?.ventasPorSede; track sede.sede) {
+              <div class="space-y-2">
+                <div class="flex justify-between items-baseline">
+                  <span class="text-sm font-bold text-slate-800">{{ sede.sede }}</span>
+                  <span class="text-base font-black text-slate-950">S/ {{ sede.monto | number:'1.2-2' }}</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5">
+                  <div class="bg-orange-600 h-2.5 rounded-full" [style.width.%]="sede.porcentaje"></div>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+          <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
+            <h3 class="text-sm font-black text-slate-500 uppercase tracking-widest">Productos Más Vendidos (Top 5)</h3>
+            <span class="material-symbols-outlined text-slate-400">leaderboard</span>
+          </div>
+          
+          <div class="space-y-6">
+            @for (producto of dashboardData?.productosTop; track producto.nombre) {
+              <div class="space-y-2">
+                <div class="flex justify-between items-baseline">
+                  <div>
+                    <span class="text-sm font-bold text-slate-800">{{ producto.nombre }}</span>
+                    <span class="text-xs text-slate-500 font-medium ml-2">({{ producto.cantidad }} unidades)</span>
+                  </div>
+                  <span class="text-base font-black text-slate-950">S/ {{ producto.ingresoTotal | number:'1.2-2' }}</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5">
+                  <div class="bg-slate-800 h-2.5 rounded-full" [style.width.%]="producto.porcentaje"></div>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+
+      </div>
+    </div>
+  }
+
+  <div class="absolute bottom-4 right-8 w-40 h-40 opacity-5 pointer-events-none overflow-hidden">
+    <svg class="w-full h-full fill-none stroke-slate-900 stroke-[0.3]" viewBox="0 0 100 100">
+      <circle cx="100" cy="100" r="80"></circle>
+      <circle cx="100" cy="100" r="60"></circle>
+      <circle cx="100" cy="100" r="40"></circle>
+    </svg>
+  </div>
+</div>

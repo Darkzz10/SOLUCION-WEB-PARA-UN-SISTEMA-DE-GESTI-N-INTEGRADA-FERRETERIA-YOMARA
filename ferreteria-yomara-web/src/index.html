@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FerreteriaYomaraWeb</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#964900",
+            "primary-container": "#f57c00",
+            "surface": "#f4faff",
+            "surface-container-high": "#ddeaf2",
+            "surface-container-lowest": "#ffffff",
+            "on-surface": "#111d23",
+            "on-surface-variant": "#574235",
+            "inverse-surface": "#263238",
+            "outline-variant": "#dec1af"
+          },
+          fontFamily: { "body": ["Inter"] }
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>

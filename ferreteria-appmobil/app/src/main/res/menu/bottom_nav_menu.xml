@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_almacen"
+        android:icon="@drawable/ic_inventory"
+        android:title="Almacén" />
+    <item
+        android:id="@+id/nav_transporte"
+        android:icon="@drawable/ic_truck"
+        android:title="Transporte" />
+    <item
+        android:id="@+id/nav_perfil"
+        android:icon="@drawable/ic_person"
+        android:title="Mi Perfil" />
+</menu>

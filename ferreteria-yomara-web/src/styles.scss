@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+/* --- src/styles.scss --- */
+
+/* 1. Reset Global del Body */
+html, body {
+  margin: 0;           /* Quita los espacios blancos de los bordes del navegador */
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* ESTA ES LA LÍNEA MÁGICA QUE BORRA LA BARRA INFERIOR */
+  overflow-x: hidden; 
+  
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* 2. Control de Cajas (Box Sizing) */
+/* Esto asegura que si pones width: 100% + padding: 20px, NO se desborde */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Opcional: Estilo agradable para el scroll vertical si lo necesitas */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #888; 
+}
