@@ -1,0 +1,40 @@
+# IDEs y Editores
+.idea/
+*.iml
+.vscode/
+*.swp
+*.patch
+*.diff
+
+# Android / Kotlin
+**/build/
+.gradle/
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aar
+*.keystore
+!debug.keystore
+
+# Java / Maven (Spring Boot)
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Node / Web (Angular/React)
+node_modules/
+dist/
+.npm
+.eslintcache
+
+# Archivos de Sistema y Temporales
+.DS_Store
+Thumbs.db
+*.rar
+*.zip
+*.7z
+*.log
