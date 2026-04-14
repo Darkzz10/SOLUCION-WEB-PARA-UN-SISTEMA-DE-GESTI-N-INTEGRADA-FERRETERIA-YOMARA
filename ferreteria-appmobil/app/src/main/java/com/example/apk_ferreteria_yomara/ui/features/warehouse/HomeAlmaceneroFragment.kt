@@ -1,49 +1,61 @@
 package com.example.apk_ferreteria_yomara.ui.features.warehouse
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast // 👈 Faltaba este import
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import com.example.apk_ferreteria_yomara.data.local.preferences.AuthPreferences
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.apk_ferreteria_yomara.R
 import com.example.apk_ferreteria_yomara.databinding.FragmentHomeAlmaceneroBinding
-import com.example.apk_ferreteria_yomara.ui.features.auth.LoginActivity
+import com.example.apk_ferreteria_yomara.ui.features.warehouse.adapter.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeAlmaceneroFragment : Fragment() {
+class HomeAlmaceneroFragment : Fragment(R.layout.fragment_home_almacenero) {
 
     private var _binding: FragmentHomeAlmaceneroBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var authPreferences: AuthPreferences
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHomeAlmaceneroBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private val viewModel: HomeAlmaceneroViewModel by viewModels()
+    private lateinit var productAdapter: ProductAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentHomeAlmaceneroBinding.bind(view)
 
-        binding.btnCerrarSesion.setOnClickListener {
-            logout()
+        setupRecyclerView()
+        setupListeners()
+        setupObservers()
+    }
+
+    private fun setupRecyclerView() {
+        productAdapter = ProductAdapter()
+        binding.rvProductos.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = productAdapter
         }
     }
 
-    private fun logout() {
-        authPreferences.clearSession()
-
-        val intent = Intent(requireContext(), LoginActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    private fun setupListeners() {
+        binding.btnBuscar.setOnClickListener {
+            val query = binding.etBusqueda.text.toString()
+            viewModel.realizarBusqueda(query)
         }
-        startActivity(intent)
+
+    }
+
+    private fun setupObservers() {
+        // 🛡️ Usamos 'productos' que es el nombre en el ViewModel real
+        viewModel.productos.observe(viewLifecycleOwner) { lista ->
+            productAdapter.updateList(lista)
+        }
+
+        // Opcional: Escuchar el loading para mostrar/ocultar algo si quieres
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            // Aquí podrías poner un progress bar
+        }
     }
 
     override fun onDestroyView() {
