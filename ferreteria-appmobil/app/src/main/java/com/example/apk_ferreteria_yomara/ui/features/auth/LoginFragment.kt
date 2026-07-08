@@ -9,16 +9,19 @@ import androidx.fragment.app.viewModels
 import com.example.apk_ferreteria_yomara.R
 import com.example.apk_ferreteria_yomara.databinding.FragmentLoginBinding
 import com.example.apk_ferreteria_yomara.ui.features.main.MainActivity
+import com.example.apk_ferreteria_yomara.data.local.preferences.AuthPreferences
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-// @AndroidEntryPoint es vital para que Hilt pueda inyectar el ViewModel
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    // Instanciamos el ViewModel
+    @Inject
+    lateinit var authPreferences: AuthPreferences
+
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,7 +43,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun setupObservers() {
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-            binding.btnLogin.isEnabled = !isLoading // Bloqueamos el botón para no dar doble clic
+            binding.btnLogin.isEnabled = !isLoading
         }
 
         viewModel.errorMessage.observe(viewLifecycleOwner) { error ->
@@ -51,12 +54,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         viewModel.userRole.observe(viewLifecycleOwner) { rol ->
             if (rol != null) {
-
                 val intent = Intent(requireContext(), MainActivity::class.java)
 
                 intent.putExtra("USER_ROLE", rol)
-                startActivity(intent)
 
+                val nombreReal = authPreferences.getUserName()
+                intent.putExtra("USER_NAME", nombreReal)
+
+                startActivity(intent)
                 requireActivity().finish()
             }
         }

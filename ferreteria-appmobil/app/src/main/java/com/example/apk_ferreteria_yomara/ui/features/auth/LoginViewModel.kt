@@ -9,6 +9,30 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * APUNTE: GESTOR DE ESTADOS Y DATOS (LOGIN VIEWMODEL)
+ * ====================================================
+ * Este es el "Intermediario" entre la vista (Fragment) y la lógica (UseCase).
+ * Su trabajo es sobrevivir a cambios de configuración (como rotar el celular)
+ * y mantener los datos vivos mientras se consulta al servidor.
+ *
+ * CONCEPTOS CLAVE:
+ * Encapsulamiento (_mutable vs inmutable): se usa variables privadas para
+ * modificar datos y variables públicas para que la Vista solo las lea.
+ * LiveData: Es el canal de comunicación. Cuando el valor cambia, la Vista
+ * se entera automáticamente y se "pinta" sola.
+ * viewModelScope.launch:  AQUÍ NACE EL SEGUNDO PLANO. Es la corrutina que
+ * evita que la app se congele. El login viaja por internet en este bloque sin
+ * trabar el "Hilo Principal" (el que el usuario toca).
+ * Manejo de Estados: Controla el 'isLoading' para mostrar el ProgressBar y
+ * el 'errorMessage' para avisar si algo salió mal.
+ *
+ * SU RESPONSABILIDAD ES:
+ * Preparar los datos para la interfaz, disparar el proceso de autenticación
+ * en segundo plano y exponer los resultados (éxito/error) de forma segura.
+ * ===========================================================
+ */
+
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase

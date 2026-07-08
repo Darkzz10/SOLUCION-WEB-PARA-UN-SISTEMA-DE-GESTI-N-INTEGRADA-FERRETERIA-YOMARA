@@ -2,7 +2,7 @@ package com.example.apk_ferreteria_yomara.ui.features.warehouse
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast // 👈 Faltaba este import
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -43,18 +43,11 @@ class HomeAlmaceneroFragment : Fragment(R.layout.fragment_home_almacenero) {
             val query = binding.etBusqueda.text.toString()
             viewModel.realizarBusqueda(query)
         }
-
     }
 
     private fun setupObservers() {
-        // 🛡️ Usamos 'productos' que es el nombre en el ViewModel real
         viewModel.productos.observe(viewLifecycleOwner) { lista ->
             productAdapter.updateList(lista)
-        }
-
-        // Opcional: Escuchar el loading para mostrar/ocultar algo si quieres
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            // Aquí podrías poner un progress bar
         }
     }
 

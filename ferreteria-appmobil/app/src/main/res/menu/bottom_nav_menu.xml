@@ -1,14 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
-        android:id="@+id/nav_almacen"
-        android:icon="@drawable/ic_inventory"
-        android:title="Almacén" />
+        android:id="@+id/seccion_almacen"
+        android:title="Gestión de Inventario">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_consultar_stock"
+                    android:icon="@android:drawable/ic_menu_search"
+                    android:title="Consultar Stock" />
+                <item
+                    android:id="@+id/nav_ingreso_proveedor"
+                    android:icon="@android:drawable/ic_input_add"
+                    android:title="Ingreso de Mercadería" />
+            </group>
+        </menu>
+    </item>
+
     <item
-        android:id="@+id/nav_transporte"
-        android:icon="@drawable/ic_truck"
-        android:title="Transporte" />
-    <item
-        android:id="@+id/nav_perfil"
-        android:icon="@drawable/ic_person"
-        android:title="Mi Perfil" />
+        android:id="@+id/seccion_transporte"
+        android:title="Logística y Entregas">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_mis_rutas"
+                    android:icon="@android:drawable/ic_menu_mapmode"
+                    android:title="Mis Rutas de Hoy" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Mi Cuenta">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_perfil"
+                    android:icon="@android:drawable/ic_menu_myplaces"
+                    android:title="Mi Perfil" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Sistema">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@android:drawable/ic_lock_power_off"
+                android:title="Cerrar Sesión" />
+        </menu>
+    </item>
+
 </menu>
